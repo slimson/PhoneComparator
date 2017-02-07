@@ -11,8 +11,7 @@ public class PhoneWindow {
 
     // doesn't need to be called "start" any more...    
     public void start(Phone phone) throws Exception {
-        //Parent root = FXMLLoader.load(getClass().getResource("view/PhoneWindowView.fxml"));
-    	StackPane root = new StackPane();
+        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("view/PhoneWindowView.fxml"));
     	Scene scene =  new Scene(root, 200 ,200);
         //scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
         
