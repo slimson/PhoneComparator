@@ -14,7 +14,7 @@ public class Parser implements IParser{
 	Document doc;
 	Phone phone;
 	Elements table;
-	Map <String, String> searchingResults;
+	HashMap <String, String> searchingResults;
 	
 	public Parser() {
 		phone = new Phone();
@@ -22,7 +22,7 @@ public class Parser implements IParser{
 
 	}
 	
-	public Map <String, String> getListWithResults() {
+	public HashMap <String, String> getListWithResults() {
 		return searchingResults;
 	}
 		
@@ -76,7 +76,7 @@ public class Parser implements IParser{
 	
 	
 	public String downloadPhoneList(String modelStr) {
-		
+		searchingResults.clear();
 		String querryUrl = createQuerryUrl(modelStr);
 				
 		setParserPage(querryUrl);
