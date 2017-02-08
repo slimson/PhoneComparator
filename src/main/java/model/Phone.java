@@ -3,6 +3,10 @@ package model;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import model.PhoneWindow.PhoneData;
+
 
 public class Phone {
 	
@@ -82,11 +86,59 @@ public class Phone {
 			break;
 			
 		}
+	}
 		
-		
+		public Map<String, String> getSpecifiedMap(AppInfo.MapTypes type) {
+			switch(type) {
+			case NETWORK:
+				return networkMap;
+			case LAUNCH:
+				return launchMap;
+			case BODY:
+				return bodyMap;
+			case DISPLAY:
+				return displayMap;
+			case PLATFORM:
+				return platformMap;
+			case MEMORY:
+				return memoryMap;
+			case CAMERA:
+				return cameraMap;
+			case SOUND:
+				return soundMap;
+			case COMMS:
+				return commsMap;
+			case FEATURES:
+				return featuresMap;
+			case BETTERY:
+				return batteryMap;
+			case MISC:
+				return miscMap;
+			case TESTS:
+				return testsMap;
+			default:
+				System.err.println("map of given name doesnt exist");
+				return null;
+				
+			}
 		
 	}
-
+	
+	
+//todo nalezy zaimplementowac metode do zwracania kazdej mapy w zaleznosci od PARAMETRU	
+/*	ObservableList<PhoneData> convertAllMapsToObservable() {
+		ObservableList<PhoneData> data = FXCollections.observableArrayList();
+		
+		for (Map.Entry<String,String> entry : networkMap.entrySet()) {
+			  String key = entry.getKey();
+			  String value = entry.getValue();
+			  data.add(new PhoneData(key, value));
+		}
+		
+		return data;
+	}*/
+	
+	
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
@@ -99,6 +151,12 @@ public class Phone {
 		}
 		
 		for (Map.Entry<String,String> entry : miscMap.entrySet()) {
+			  String key = entry.getKey();
+			  String value = entry.getValue();
+			  temp += key + " : " + value + " \n";
+		}
+		
+		for (Map.Entry<String,String> entry : batteryMap.entrySet()) {
 			  String key = entry.getKey();
 			  String value = entry.getValue();
 			  temp += key + " : " + value + " \n";

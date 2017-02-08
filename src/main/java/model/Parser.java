@@ -70,7 +70,12 @@ public class Parser implements IParser{
 	}
 	
 	void ParseDataToPhone(AppInfo.MapTypes type, Element specification, Element value) {
-		phone.addSpecification(type, specification.text(), value.text());
+		if(specification == null) {
+			phone.addSpecification(type, "-", value.text());
+		} else {
+			phone.addSpecification(type, specification.text(), value.text());
+		}
+		
 	}
 	
 	
