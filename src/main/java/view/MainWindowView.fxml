@@ -13,6 +13,6 @@
     <Button fx:id="button1" layoutX="211.0" layoutY="361.0" mnemonicParsing="false" onAction="#openNewWindow" prefHeight="25.0" prefWidth="175.0" text="Search" />
       <ListView fx:id="listView" layoutX="211.0" layoutY="14.0" onMouseClicked="#handleMouseClick" prefHeight="335.0" prefWidth="175.0" />
       <TextField fx:id="textField" layoutX="14.0" layoutY="14.0" prefWidth="175.0" promptText="Wpisz model" />
-      <TreeView layoutX="14.0" layoutY="51.0" prefHeight="335.0" prefWidth="175.0" />
+      <TreeView fx:id="treeView" layoutX="14.0" layoutY="51.0" prefHeight="335.0" prefWidth="175.0" />
    </children>
 </AnchorPane>

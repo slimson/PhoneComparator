@@ -1,5 +1,6 @@
 package model;
 
+import java.util.List;
 import java.util.Map;
 
 import javafx.beans.property.SimpleStringProperty;
@@ -22,7 +23,7 @@ public class PhoneWindow {
 	private TableView<PhoneData> table = new TableView<PhoneData>();
     private ObservableList<PhoneData> tableContent = FXCollections.observableArrayList();
     
-    private final String windowTitle = "Phone Data";
+    private final String windowTitle = "Phone Details";
     private final int windowWidth = 620;
     private final int windowHeight = 500;
 	
@@ -30,16 +31,20 @@ public class PhoneWindow {
 		
 	}
 
-	public PhoneWindow(Phone phone, String phoneName) {
+	public PhoneWindow(Phone phone, String phoneName, List<AppInfo.MapTypes> specList) {
 		label = new Label(phoneName);
 		label.setFont(new Font("Arial", 20));
 		//test pobierania danych z telefonu
-		addMapToObservableList(phone.getSpecifiedMap(AppInfo.MapTypes.NETWORK), AppInfo.MapTypes.NETWORK);
-		addMapToObservableList(phone.getSpecifiedMap(AppInfo.MapTypes.LAUNCH), AppInfo.MapTypes.LAUNCH);
+		
+		for(AppInfo.MapTypes type : specList) {
+			addMapToObservableList(phone.getSpecifiedMap(type), type);
+		}
+		
+		/*addMapToObservableList(phone.getSpecifiedMap(AppInfo.MapTypes.LAUNCH), AppInfo.MapTypes.LAUNCH);
 		addMapToObservableList(phone.getSpecifiedMap(AppInfo.MapTypes.BODY), AppInfo.MapTypes.BODY);
 		addMapToObservableList(phone.getSpecifiedMap(AppInfo.MapTypes.DISPLAY), AppInfo.MapTypes.DISPLAY);
 		addMapToObservableList(phone.getSpecifiedMap(AppInfo.MapTypes.MEMORY), AppInfo.MapTypes.MEMORY);
-		addMapToObservableList(phone.getSpecifiedMap(AppInfo.MapTypes.MISC), AppInfo.MapTypes.MISC);
+		addMapToObservableList(phone.getSpecifiedMap(AppInfo.MapTypes.MISC), AppInfo.MapTypes.MISC);*/
 		
 	}
 	
