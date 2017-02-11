@@ -1,8 +1,11 @@
 package application;
 
+import java.io.IOException;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
+import model.AppInfo;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -10,16 +13,12 @@ import javafx.scene.layout.BorderPane;
 
 public class MainWindow extends Application {
 	@Override
-	public void start(Stage primaryStage) {
-		try {
-			Parent root = FXMLLoader.load(getClass().getResource("/view/MainwindowView.fxml"));
+	public void start(Stage primaryStage) throws IOException {
+			Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("view/MainwindowView.fxml"));
 			Scene scene = new Scene(root,400,400);
-			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			primaryStage.setTitle(AppInfo.APP_NAME);
 			primaryStage.setScene(scene);
 			primaryStage.show();
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
 	}
 	
 	public static void main(String[] args) {

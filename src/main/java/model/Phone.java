@@ -83,8 +83,7 @@ public class Phone {
 			break;
 		default:
 			System.err.println("map of given name doesnt exist");
-			break;
-			
+			break;			
 		}
 	}
 		
@@ -118,52 +117,8 @@ public class Phone {
 				return testsMap;
 			default:
 				System.err.println("map of given name doesnt exist");
-				return null;
-				
-			}
-		
-	}
-	
-	
-//todo nalezy zaimplementowac metode do zwracania kazdej mapy w zaleznosci od PARAMETRU	
-/*	ObservableList<PhoneData> convertAllMapsToObservable() {
-		ObservableList<PhoneData> data = FXCollections.observableArrayList();
-		
-		for (Map.Entry<String,String> entry : networkMap.entrySet()) {
-			  String key = entry.getKey();
-			  String value = entry.getValue();
-			  data.add(new PhoneData(key, value));
-		}
-		
-		return data;
-	}*/
-	
-	
-	@Override
-	public String toString() {
-		// TODO Auto-generated method stub
-		String temp = new String();
-		
-		for (Map.Entry<String,String> entry : networkMap.entrySet()) {
-			  String key = entry.getKey();
-			  String value = entry.getValue();
-			  temp += key + " : " + value + " \n";
-		}
-		
-		for (Map.Entry<String,String> entry : miscMap.entrySet()) {
-			  String key = entry.getKey();
-			  String value = entry.getValue();
-			  temp += key + " : " + value + " \n";
-		}
-		
-		for (Map.Entry<String,String> entry : batteryMap.entrySet()) {
-			  String key = entry.getKey();
-			  String value = entry.getValue();
-			  temp += key + " : " + value + " \n";
-		}
-		
-		
-		return temp;
+				return null;				
+			}	
 	}
 	
 }

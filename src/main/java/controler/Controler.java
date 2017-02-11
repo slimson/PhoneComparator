@@ -34,10 +34,7 @@ import model.Phone;
 import model.PhoneWindow;
 
 public class Controler implements Initializable{
-	
-	PhoneWindow pw;
-	Parser internetParser = new Parser();
-	
+		
 	@FXML
 	private Button button1 ;
 	@FXML
@@ -47,32 +44,29 @@ public class Controler implements Initializable{
 	@FXML
 	private TreeView treeView = new TreeView();
 	
-	//@FXML
-	//private TableView<DataElo> table = new TableView<DataElo>();
-	
+	private Parser internetParser = new Parser();
+	private PhoneWindow pw;
 	private Phone phone;
 	
-	private ObservableList<String> resultList = FXCollections.observableArrayList();
-	//private ObservableList<DataElo> dane = FXCollections.observableArrayList();
-	
-	List<AppInfo.MapTypes> listOfParameters = new ArrayList<AppInfo.MapTypes>();
-	
-    CheckBoxTreeItem<String> item1;
-    CheckBoxTreeItem<String> item2;
-    CheckBoxTreeItem<String> item3;
-    CheckBoxTreeItem<String> item4;
-    CheckBoxTreeItem<String> item5;
-    CheckBoxTreeItem<String> item6;
-    CheckBoxTreeItem<String> item7;
-    CheckBoxTreeItem<String> item8;
-    CheckBoxTreeItem<String> item9;
-    CheckBoxTreeItem<String> item10;
-    CheckBoxTreeItem<String> item11;
-    CheckBoxTreeItem<String> item12;
-    CheckBoxTreeItem<String> item13;
-    CheckBoxTreeItem<String> rootItem;
-
+	private CheckBoxTreeItem<String> item1;
+    private CheckBoxTreeItem<String> item2;
+    private CheckBoxTreeItem<String> item3;
+    private CheckBoxTreeItem<String> item4;
+    private CheckBoxTreeItem<String> item5;
+    private CheckBoxTreeItem<String> item6;
+    private CheckBoxTreeItem<String> item7;
+    private CheckBoxTreeItem<String> item8;
+    private CheckBoxTreeItem<String> item9;
+    private CheckBoxTreeItem<String> item10;
+    private CheckBoxTreeItem<String> item11;
+    private CheckBoxTreeItem<String> item12;
+    private CheckBoxTreeItem<String> item13;
+    private CheckBoxTreeItem<String> rootItem;
     
+    private ObservableList<String> resultList = FXCollections.observableArrayList();
+	private List<AppInfo.MapTypes> listOfParameters = new ArrayList<AppInfo.MapTypes>();
+	
+
 	public void initialize(URL location, ResourceBundle resources) {
 		listView.setItems(resultList);
 		
@@ -106,80 +100,18 @@ public class Controler implements Initializable{
 	        
 	}
 
-/*	CheckBoxTreeItem<String> createChildrensFromParameters(AppInfo.MapTypes type) {
-		CheckBoxTreeItem<String> rootItem = new CheckBoxTreeItem<String>("Parameters to display:");
-		for(App)
-		
-	}*/
-	List<AppInfo.MapTypes> createListFromChosenParameters() {
-		List<AppInfo.MapTypes> lista = new ArrayList<AppInfo.MapTypes>();
-		for(TreeItem item : rootItem.getChildren()) {
-			if(((CheckBoxTreeItem)item).isSelected()){
-	            System.out.println(item.getValue().toString() + " is selected");
-	            lista.add(itemToMapType(item));
-	        }
-		}
-		return lista;
-	}
-	
-	AppInfo.MapTypes itemToMapType(TreeItem item ) {
-		if(item.getValue().toString().equals(AppInfo.MapTypes.NETWORK.toString())) {
-			return AppInfo.MapTypes.NETWORK;
-		}
-		if(item.getValue().toString().equals(AppInfo.MapTypes.LAUNCH.toString())) {
-			return AppInfo.MapTypes.LAUNCH;
-		}
-		if(item.getValue().toString().equals(AppInfo.MapTypes.BODY.toString())) {
-			return AppInfo.MapTypes.BODY;
-		}
-		if(item.getValue().toString().equals(AppInfo.MapTypes.DISPLAY.toString())) {
-			return AppInfo.MapTypes.DISPLAY;
-		}
-		if(item.getValue().toString().equals(AppInfo.MapTypes.PLATFORM.toString())) {
-			return AppInfo.MapTypes.PLATFORM;
-		}
-		if(item.getValue().toString().equals(AppInfo.MapTypes.MEMORY.toString())) {
-			return AppInfo.MapTypes.MEMORY;
-		}
-		if(item.getValue().toString().equals(AppInfo.MapTypes.CAMERA.toString())) {
-			return AppInfo.MapTypes.CAMERA;
-		}
-		if(item.getValue().toString().equals(AppInfo.MapTypes.SOUND.toString())) {
-			return AppInfo.MapTypes.SOUND;
-		}
-		if(item.getValue().toString().equals(AppInfo.MapTypes.COMMS.toString())) {
-			return AppInfo.MapTypes.COMMS;
-		}
-		if(item.getValue().toString().equals(AppInfo.MapTypes.FEATURES.toString())) {
-			return AppInfo.MapTypes.FEATURES;
-		}
-		if(item.getValue().toString().equals(AppInfo.MapTypes.BETTERY.toString())) {
-			return AppInfo.MapTypes.BETTERY;
-		}
-		if(item.getValue().toString().equals(AppInfo.MapTypes.MISC.toString())) {
-			return AppInfo.MapTypes.MISC;
-		}
-		if(item.getValue().toString().equals(AppInfo.MapTypes.TESTS.toString())) {
-			return AppInfo.MapTypes.TESTS;
-		} else {
-			return null;
-		}
-		
-	}
-	
 	@FXML
-    private void openNewWindow(ActionEvent event) throws Exception {
+    public void search(ActionEvent event) throws Exception {
 		resultList.clear();
-        System.out.println("nowe okno");
         Stage stage = new Stage();
         Phone phone = new Phone();
-        //pw.start(phone);
 		String content = textField.getText();
-		button1.setText("elo");
-		//listView.getItems().add(content);
-		System.out.println(internetParser.downloadPhoneList(content));
-		saveResultToObservable(internetParser.getListWithResults());
-		
+		String result = internetParser.downloadPhoneList(content);
+		if(result.equals(AppInfo.PHONE_FOUND) || result.equals(AppInfo.PHONES_FOUND) ) {
+			saveResultToObservable(internetParser.getListWithResults());
+		} else {
+			showMessageForNoResult();
+		}				
     }
 	
 	
@@ -190,25 +122,84 @@ public class Controler implements Initializable{
 		}
 	}
 	
-	@FXML public void handleMouseClick(MouseEvent arg0) {
+	private void showMessageForNoResult() {
+		resultList.add("NO PHONES FOUND");
+	}
+	
+	@FXML 
+	public void handleMouseClick(MouseEvent arg0) {
 		try {
 			listOfParameters = createListFromChosenParameters();
-			String s = listView.getSelectionModel().getSelectedItem().toString();
-			String res = internetParser.getListWithResults().get(s);
-			System.out.println("clicked on " + s + " : " + res );
-			phone = internetParser.donwloadPhoneData(res);
-			System.out.println(phone);
-			pw = new PhoneWindow(phone, s, listOfParameters);
-			pw.start(phone);
+			String selectedRow = listView.getSelectionModel().getSelectedItem().toString();
+			String res = internetParser.getListWithResults().get(selectedRow);
+			if(!selectedRow.equals("NO PHONES FOUND")) {
+				phone = internetParser.donwloadPhoneData(res);
+				pw = new PhoneWindow(phone, selectedRow, listOfParameters);
+				pw.start(phone);
+			}
 		} catch (Exception e) {
 			System.out.println("click on row");
 		}
 	}
 	
-        
+	private List<AppInfo.MapTypes> createListFromChosenParameters() {
+		List<AppInfo.MapTypes> lista = new ArrayList<AppInfo.MapTypes>();
+		for(TreeItem item : rootItem.getChildren()) {
+			if(((CheckBoxTreeItem)item).isSelected()){
+	            lista.add(itemToMapType(item));
+	        }
+		}
+		return lista;
+	}
+	
+	private AppInfo.MapTypes itemToMapType(TreeItem item ) {
+		if(isItemSpecificType(item, AppInfo.MapTypes.NETWORK)) {
+			return AppInfo.MapTypes.NETWORK;
+		}
+		if(isItemSpecificType(item, AppInfo.MapTypes.LAUNCH)) {
+			return AppInfo.MapTypes.LAUNCH;
+		}
+		if(isItemSpecificType(item, AppInfo.MapTypes.BODY)) {
+			return AppInfo.MapTypes.BODY;
+		}
+		if(isItemSpecificType(item, AppInfo.MapTypes.DISPLAY)) {
+			return AppInfo.MapTypes.DISPLAY;
+		}
+		if(isItemSpecificType(item, AppInfo.MapTypes.PLATFORM)) {
+			return AppInfo.MapTypes.PLATFORM;
+		}
+		if(isItemSpecificType(item, AppInfo.MapTypes.MEMORY)) {
+			return AppInfo.MapTypes.MEMORY;
+		}
+		if(isItemSpecificType(item, AppInfo.MapTypes.CAMERA)) {
+			return AppInfo.MapTypes.CAMERA;
+		}
+		if(isItemSpecificType(item, AppInfo.MapTypes.SOUND)) {
+			return AppInfo.MapTypes.SOUND;
+		}
+		if(isItemSpecificType(item, AppInfo.MapTypes.COMMS)) {
+			return AppInfo.MapTypes.COMMS;
+		}
+		if(isItemSpecificType(item, AppInfo.MapTypes.FEATURES)) {
+			return AppInfo.MapTypes.FEATURES;
+		}
+		if(isItemSpecificType(item, AppInfo.MapTypes.BETTERY)) {
+			return AppInfo.MapTypes.BETTERY;
+		}
+		if(isItemSpecificType(item, AppInfo.MapTypes.MISC)) {
+			return AppInfo.MapTypes.MISC;
+		}
+		if(isItemSpecificType(item, AppInfo.MapTypes.TESTS)) {
+			return AppInfo.MapTypes.TESTS;
+		} else {
+			return null;
+		}	
+	}
+	
+	private Boolean isItemSpecificType(TreeItem item, AppInfo.MapTypes type) {
+		if(item.getValue().toString().equals(type.toString())) {
+			return true;
+		}
+		return false;
+	}        
 }
-
-
-
-
-

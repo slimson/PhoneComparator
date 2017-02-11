@@ -35,20 +35,19 @@ public class Parser implements IParser{
 		return phone;
 	}
 	
-	void setParserPage(String url) {
+	private void setParserPage(String url) {
 		try {
 			doc = Jsoup.connect(url).get();
 		} catch (Exception e) {
-			// TODO: handle exception
+			
 		}
 	}
 	
-	void parseGivenSpecification(AppInfo.MapTypes type) {
+	private void parseGivenSpecification(AppInfo.MapTypes type) {
 		
 		try {
 			table = getMainTableContent();
 			Element tableContentOfChosenType = table.get(type.getValue());
-			//System.out.println(type);
 			Boolean rowIsFirst = true;
 			for (Element row : tableContentOfChosenType.select("tr")) {
 				if (rowIsFirst) {
@@ -59,26 +58,23 @@ public class Parser implements IParser{
 				}
 			} 
 		} catch (Exception e) {
-			//brak specyfikacji na stronie
+			
 		}    
 	}
 	
-	Elements getMainTableContent() {
+	private Elements getMainTableContent() {
 		Elements ele = doc.select("div#specs-list");
         Elements table = ele.select("table");
         return table;
 	}
 	
-	void ParseDataToPhone(AppInfo.MapTypes type, Element specification, Element value) {
+	private void ParseDataToPhone(AppInfo.MapTypes type, Element specification, Element value) {
 		if(specification == null) {
 			phone.addSpecification(type, "-", value.text());
 		} else {
 			phone.addSpecification(type, specification.text(), value.text());
-		}
-		
+		}	
 	}
-	
-	
 	
 	public String downloadPhoneList(String modelStr) {
 		searchingResults.clear();
@@ -93,8 +89,7 @@ public class Parser implements IParser{
 			for( Element row : ele.select("li").select("a") ) {
 	        	String model = row.select("strong").select("span").text();
 	        	String shortUrl = row.attr("href");
-	        	String modelUrl = "http://www.gsmarena.com/" + shortUrl;
-	        	
+	        	String modelUrl = "http://www.gsmarena.com/" + shortUrl;	        	
 	        	searchingResults.put(model, modelUrl);
 	        }
 			return AppInfo.PHONES_FOUND;
@@ -104,8 +99,7 @@ public class Parser implements IParser{
 			String model = modelStr;
 			searchingResults.put(model,querryUrl);
 			return AppInfo.PHONE_FOUND;	
-        }
-        
+        }      
 	}
 	
 	String createQuerryUrl(String modelStr) {
