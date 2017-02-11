@@ -3,6 +3,10 @@ package model;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import model.PhoneWindow.PhoneData;
+
 
 public class Phone {
 	
@@ -79,33 +83,42 @@ public class Phone {
 			break;
 		default:
 			System.err.println("map of given name doesnt exist");
-			break;
-			
+			break;			
 		}
-		
-		
-		
 	}
-
-	@Override
-	public String toString() {
-		// TODO Auto-generated method stub
-		String temp = new String();
 		
-		for (Map.Entry<String,String> entry : networkMap.entrySet()) {
-			  String key = entry.getKey();
-			  String value = entry.getValue();
-			  temp += key + " : " + value + " \n";
-		}
-		
-		for (Map.Entry<String,String> entry : miscMap.entrySet()) {
-			  String key = entry.getKey();
-			  String value = entry.getValue();
-			  temp += key + " : " + value + " \n";
-		}
-		
-		
-		return temp;
+		public Map<String, String> getSpecifiedMap(AppInfo.MapTypes type) {
+			switch(type) {
+			case NETWORK:
+				return networkMap;
+			case LAUNCH:
+				return launchMap;
+			case BODY:
+				return bodyMap;
+			case DISPLAY:
+				return displayMap;
+			case PLATFORM:
+				return platformMap;
+			case MEMORY:
+				return memoryMap;
+			case CAMERA:
+				return cameraMap;
+			case SOUND:
+				return soundMap;
+			case COMMS:
+				return commsMap;
+			case FEATURES:
+				return featuresMap;
+			case BETTERY:
+				return batteryMap;
+			case MISC:
+				return miscMap;
+			case TESTS:
+				return testsMap;
+			default:
+				System.err.println("map of given name doesnt exist");
+				return null;				
+			}	
 	}
 	
 }

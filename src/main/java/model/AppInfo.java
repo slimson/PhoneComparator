@@ -15,9 +15,9 @@ public class AppInfo {
 	        return value;
 	    }
 	}
-	
-	final static public String QUERRY_URL = "http://www.gsmarena.com/results.php3?sQuickSearch=yes&sName=";
-	final static public String PHONES_FOUND = "Phones Found";
-	final static public String NO_PHONES_FOUND = "No Phones Found";
-	final static public String PHONE_FOUND = "Correct Phone Found";
+	final public static String APP_NAME = "Phone Comparator";
+	final public static String QUERRY_URL = "http://www.gsmarena.com/results.php3?sQuickSearch=yes&sName=";
+	final public static String PHONES_FOUND = "Phones Found";
+	final public static String NO_PHONES_FOUND = "No Phones Found";
+	final public static String PHONE_FOUND = "Correct Phone Found";
 }
